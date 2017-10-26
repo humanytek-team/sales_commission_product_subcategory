@@ -11,4 +11,4 @@ class ProductSubcategory(models.Model):
     _name = 'product.subcategory'
 
     name = fields.Char('Name', required=True)
-    active = fields.Boolean('Active')
+    active = fields.Boolean('Active', default=True)
