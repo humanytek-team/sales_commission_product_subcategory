@@ -13,7 +13,7 @@
     'data': [
         #'security/ir.model.access.csv',
         'views/product_subcategory_view.xml',
-        #'views/sale_commission_scheme_view.xml',
+        'views/sale_commission_scheme_view.xml',
         #'wizard/calculate_sale_commission_view.xml',
     ],
     'installable': True,

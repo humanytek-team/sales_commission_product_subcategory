@@ -32,6 +32,7 @@ class SaleCommissionSchemeItem(models.Model):
 
     product_subcategory_id = fields.Many2one(
         'product.subcategory', 'Product Subcategory')
+    goal = fields.Float('Goal', required=True)
     commission_compliance_rate_ids = fields.One2many(
         'sale.commission.compliance.rate',
         'item_id',
@@ -47,6 +48,13 @@ class SaleCommissionComplianceRate(models.Model):
     _name = 'sale.commission.compliance.rate'
     _rec_name = 'compliance_rate'
 
+    op = fields.Selection([
+        ('=', '='),
+        ('>', '>'),
+        ('<', '<'),
+        ('>=', '>='),
+        ('<=', '<=')
+        ], 'Operator', required=True, default='>=')
     compliance_rate = fields.Float('Compliance Rate (%)', required=True)
     commission = fields.Float('Commission', required=True)
     item_id = fields.Many2one('sale.commission.scheme.item', 'Item')

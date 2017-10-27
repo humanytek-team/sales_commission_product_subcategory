@@ -1,7 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-      
+
+      <record id="sale_commission_scheme_form" model="ir.ui.view">
+        <field name="name">sale.commission.scheme.form</field>
+        <field name="model">sale.commission.scheme</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+
+              <div class="oe_title">
+                  <div class="oe_edit_only">
+                      <label for="name" string="Scheme Name"/>
+                  </div>
+                  <h1>
+                      <field name="name"/>
+                  </h1>
+              </div>
+
+              <group>
+
+                <group>
+                  <field name="active" />
+                  <field name="company_id" groups="base.group_multi_company" />
+                </group>
+
+                <group>
+                  <field name="start_date" />
+                  <field name="end_date" />
+                </group>
+
+              </group>
+
+              <notebook>
+                <page string="Items">
+                  <field name="item_ids" nolabel="1" />
+                </page>
+              </notebook>
+
+            </sheet>
+          </form>
+        </field>
+      </record>
+
+      <record id="sale_commission_scheme_tree" model="ir.ui.view">
+          <field name="name">sale.commission.scheme.tree</field>
+          <field name="model">sale.commission.scheme</field>
+          <field name="arch" type="xml">
+              <tree>
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="start_date" />
+                <field name="end_date" />
+              </tree>
+          </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_sale_commission_scheme">
+          <field name="name">Sale Commissions Schemes</field>
+          <field name="res_model">sale.commission.scheme</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Record a new sale commission scheme.
+              </p>
+          </field>
+      </record>
+
+      <menuitem
+          name="Sales commissions schemes by product subcategory"
+          id="menu_sale_commission_scheme"
+          action="action_sale_commission_scheme"
+          parent="product.prod_config_main"/>
+
+      <record id="sale_commission_scheme_item_form" model="ir.ui.view">
+        <field name="name">sale.commission.scheme.item.form</field>
+        <field name="model">sale.commission.scheme.item</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+
+              <div class="oe_title">
+                <div class="oe_edit_only">
+                  <label for="product_subcategory_id" string="Product Subcategory"/>
+                </div>
+                <h1>
+                  <field name="product_subcategory_id"/>
+                </h1>
+              </div>
+
+              <group>
+                <group>
+                  <field name="goal" />
+                </group>
+              </group>
+
+              <notebook>
+                <page string="Commissions">
+                  <separator string="Commissions per compliance rate" />
+                  <field name="commission_compliance_rate_ids" nolabel="1">
+                    <tree editable="bottom">
+                      <field name="op" />
+                      <field name="compliance_rate" />
+                      <field name="commission" />
+                    </tree>
+                  </field>
+                </page>
+              </notebook>
+
+            </sheet>
+          </form>
+        </field>
+      </record>
+
+      <record id="sale_commission_scheme_item_tree" model="ir.ui.view">
+          <field name="name">sale.commission.scheme.item.tree</field>
+          <field name="model">sale.commission.scheme.item</field>
+          <field name="arch" type="xml">
+              <tree>
+                <field name="product_subcategory_id" />
+                <field name="goal" />
+              </tree>
+          </field>
+      </record>
 
     </data>
 </openerp>
