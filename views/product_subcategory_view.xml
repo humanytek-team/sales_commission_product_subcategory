@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+      <record id="product_subcategory_form" model="ir.ui.view">
+        <field name="name">product.subcategory.form</field>
+        <field name="model">product.subcategory</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <div class="oe_title">
+                  <div class="oe_edit_only">
+                      <label for="name" string="Product Subcategory"/>
+                  </div>
+                  <h1>
+                      <field name="name"/>
+                  </h1>
+              </div>
+              <group>
+                <field name="active" />
+              </group>
+            </sheet>
+          </form>
+        </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_product_subcategory">
+          <field name="name">Product Subcategories</field>
+          <field name="res_model">product.subcategory</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  Record a new product subcategory.
+              </p>
+          </field>
+      </record>
+
+      <menuitem
+          name="Product Subcategories"
+          id="menu_product_subcategory"
+          action="action_product_subcategory"
+          parent="product.prod_config_main"/>
+
+      <record id="view_product_template_search_product_subcat" model="ir.ui.view">
+        <field name="name">product.template.search.product.subcat</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+          <field name="name" position="after">
+            <field name="subcategory_id"/>
+            <filter string="Subcategory" name="groupby_subcat" domain="[]"
+              context="{'group_by' : 'subcategory_id'}"/>
+            <separator/>
+          </field>
+        </field>
+      </record>
+
+      <record id="product_template_form_subcategory_add" model="ir.ui.view">
+        <field name="name">product.template.product.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+          <group name="group_general" position="inside">
+            <field name="subcategory_id" placeholder="Subcategory"/>
+          </group>
+        </field>
+      </record>
+
+</data>
+</openerp>
