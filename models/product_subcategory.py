@@ -12,3 +12,7 @@ class ProductSubcategory(models.Model):
 
     name = fields.Char('Name', required=True)
     active = fields.Boolean('Active', default=True)
+    product_ids = fields.One2many(
+        'product.template', 'subcategory_id', 'Products')
+    product_variant_ids = fields.One2many(
+        'product.product', 'subcategory_id', 'Products (variants)')

@@ -2,4 +2,4 @@
 # Copyright 2017 Humanytek - Manuel Marquez <manuel@humanytek.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-#from . import calculate_sale_commission
+from . import calculate_sale_commission

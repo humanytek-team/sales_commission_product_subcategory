@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="calculate_sale_commission_form" model="ir.ui.view">
+      <field name="name">calculate.sale.commission.form</field>
+      <field name="model">calculate.sale.commission</field>
+      <field name="arch" type="xml">
+        <form>
+
+          <p class="oe_grey">
+       	    This wizard lets calculate sale commissions automatically to sales
+            reps according to their sales done.
+       	  </p>
+
+          <div>
+            <h2>Indicate the date from which the sale commissions is to be calculated</h2>
+            <group>
+              <group>
+                <field name="start_date" />
+                <field name="end_date" />
+              </group>
+              <group>
+                <field name="sale_commission_scheme_id" />
+              </group>
+            </group>
+          </div>
+
+          <footer>
+
+      	    <button
+              string="Calculate commissions"
+              name="calculate_sale_commission"
+              type="object"
+              default_focus="1"
+              class="oe_highlight" />
+
+      	    <button string="Cancel" class="oe_link" special="cancel"/>
+      	  </footer>
+
+        </form>
+
+      </field>
+
+    </record>
+
+    <record model="ir.actions.act_window" id="action_calculate_sale_commission">
+        <field name="name">Sale Commissions</field>
+        <field name="res_model">calculate.sale.commission</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Calculate sales commisions"
+        id="menu_calculate_sale_commission"
+        action="action_calculate_sale_commission"
+        parent="base.menu_sales"/>
+
+    <record id="sale_commissions_calculated_tree" model="ir.ui.view">
+      <field name="name">sale.commissions.calculated.tree</field>
+      <field name="model">sale.commissions.calculated</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="company_id" groups="base.group_multi_company"/>
+          <field name="sales_rep_id" />
+          <field name="product_subcategory_id" />
+          <field name="sales_total" sum="Sales Total"/>
+          <field name="commission" sum="Commissions"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="sale_commissions_calculated_search" model="ir.ui.view">
+        <field name="name">sale.commissions.calculated.search</field>
+        <field name="model">sale.commissions.calculated</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="sales_rep_id"/>
+                <field name="product_subcategory_id"/>
+                <field name="commission"/>
+
+                <group expand="1" string="Group By">
+                    <filter
+                      string="Company"
+                      context="{'group_by':'company_id'}"
+                      groups="base.group_multi_company"
+                      name="group_by_company"/>
+                    <filter
+                      string="Sales Rep"
+                      context="{'group_by':'sales_rep_id'}"
+                      name="group_by_sales_rep"/>
+                    <filter
+                      string="Product Subcategory"
+                      context="{'group_by':'product_subcategory_id'}"
+                      name="group_by_subcategory"/>
+                    <filter
+                      string="Commission"
+                      context="{'group_by':'commission'}"
+                      name="group_by_commission"/>
+                 </group>
+            </search>
+        </field>
+    </record>
+
+  </data>
+</openerp>
