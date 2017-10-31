@@ -4,7 +4,7 @@
 
 {
     'name': 'Manager of sales comissions by product subcategories',
-    'version': '9.0.1.0.0',
+    'version': '9.0.1.0.1',
     'category': 'Sales',
     'author': 'Humanytek',
     'website': "http://www.humanytek.com",

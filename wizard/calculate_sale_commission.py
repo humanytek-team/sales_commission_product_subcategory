@@ -218,6 +218,12 @@ class CalculateSaleCommission(models.TransientModel):
                 'domain': "[('wizard_id', '=', %s)]" % self.id
             }
 
+        else:
+
+            raise ValidationError(
+                _('the calculation not returned commissions for any sales rep.')
+                )
+
 
 class SaleCommissionsCalculated(models.TransientModel):
     _name = 'sale.commissions.calculated'
