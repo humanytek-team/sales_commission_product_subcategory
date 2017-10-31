@@ -2,7 +2,9 @@
 # Copyright 2017 Humanytek - Manuel Marquez <manuel@humanytek.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from openerp import fields, models
+from openerp import api, fields, models
+from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
 
 
 class SaleCommissionScheme(models.Model):
@@ -58,3 +60,24 @@ class SaleCommissionComplianceRate(models.Model):
     compliance_rate = fields.Float('Compliance Rate (%)', required=True)
     commission = fields.Float('Commission', required=True)
     item_id = fields.Many2one('sale.commission.scheme.item', 'Item')
+
+    @api.constrains('op', 'compliance_rate')
+    def _restrict_compliance_rate_duplicated(self):
+        """Restricts that users records compliance rates duplicated"""
+
+        for record in self:
+
+            current_id = record.id
+            current_item_id = record.item_id.id
+            current_op = record.op
+            current_compliance_rate = record.compliance_rate
+
+            compliance_rate_exists = self.search([
+                ('id', '!=', current_id),
+                ('item_id', '=', current_item_id),
+                ('op', '=', current_op),
+                ('compliance_rate', '=', current_compliance_rate),
+            ])
+
+            if compliance_rate_exists:
+                raise ValidationError(_('This compliance rate is duplicated'))
